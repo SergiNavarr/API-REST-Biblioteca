@@ -8,10 +8,15 @@ class LibroController{
     }
 
     async getOne(req, res){
-        const libro = req.body;
-        const id_libro = parseInt(libro.id);
-        const [result] = await pool.query(`SELECT * FROM Libros WHERE id=(?)`, [id_libro]);
-        res.json(result);
+        try{
+            const libro = req.body;
+            const id_libro = parseInt(libro.id);
+            const [result] = await pool.query(`SELECT * FROM Libros WHERE id=(?)`, [id_libro]);
+            res.json(result);
+        }catch(error){
+            console.log(error);
+            res.status(404).json({error: 'id inexistente'});
+        }
     }
     
     async add(req, res){
