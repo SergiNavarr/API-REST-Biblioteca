@@ -12,8 +12,7 @@ class LibroController{
 
     async getOne(req, res){
         try{
-            const libro = req.body;
-            const id_libro = parseInt(libro.id);
+            const id_libro = req.params.id;
             const [result] = await pool.query(`SELECT * FROM Libros WHERE id=(?)`, [id_libro]);
             if (result.length === 0) {
                 throw new Error('Libro no encontrado.');
